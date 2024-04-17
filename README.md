@@ -110,7 +110,7 @@ services:
     app:
         image: pictuga/morss
         ports:
-            - '8000:8000'
+            - '11080:11080'
 ```
 
 Build from source
@@ -129,7 +129,7 @@ services:
         build: https://git.pictuga.com/pictuga/morss.git
         image: morss
         ports:
-            - '8000:8000'
+            - '11080:11080'
 ```
 
 Then execute
@@ -173,7 +173,7 @@ write_files:
 runcmd:
   - source /etc/environment
   - update-ca-certificates
-  - iptables -I INPUT 6 -m state --state NEW -p tcp --dport ${PORT:-8000} -j ACCEPT
+  - iptables -I INPUT 6 -m state --state NEW -p tcp --dport ${PORT:-11080} -j ACCEPT
   - netfilter-persistent save
   - pip install morss[full]
 ```
@@ -206,13 +206,13 @@ other clients.
 From docker hub
 
 ```shell
-docker run -p 8000:8000 pictuga/morss
+docker run -p 11080:11080 pictuga/morss
 ```
 
 From source
 
 ```shell
-docker run -p 8000:8000 morss
+docker run -p 11080:11080 morss
 ```
 
 With docker-compose **(recommended)**
@@ -232,13 +232,13 @@ gunicorn --preload morss
 Running this command should do:
 
 ```shell
-uwsgi --http :8000 --plugin python --wsgi-file main.py
+uwsgi --http :11080 --plugin python --wsgi-file main.py
 ```
 
 #### Using morss' internal HTTP server
 
 Morss can run its own, **very basic**, HTTP server, meant for debugging mostly.
-The latter should start when you run morss without any argument, on port 8000.
+The latter should start when you run morss without any argument, on port 11080.
 I'd highly recommend you to use gunicorn or something similar for better
 performance.
 
@@ -462,7 +462,7 @@ servers)
 
 To pass environment variables:
 
-- Docker-cli: `docker run -p 8000:8000 morss --env KEY=value`
+- Docker-cli: `docker run -p 11080:11080 morss --env KEY=value`
 - docker-compose: add an `environment:` section in the .yml file
 - Gunicorn/uWSGI/CLI: prepend `KEY=value` before the command
 - Apache: via the `SetEnv` instruction (see sample `.htaccess` provided)

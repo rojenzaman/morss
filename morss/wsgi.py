@@ -38,7 +38,7 @@ from .morss import (DELAY, TIMEOUT, FeedFetch, FeedFormat, FeedGather,
                     MorssException, Options, log)
 from .util import data_path
 
-PORT = int(os.getenv('PORT', 8000))
+PORT = int(os.getenv('PORT', 11080))
 
 
 def parse_options(options):

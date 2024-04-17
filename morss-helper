@@ -6,11 +6,11 @@ if ! command -v python && command -v python3 ; then
 fi
 
 run() {
-	gunicorn --bind 0.0.0.0:${PORT:-8000} --preload --access-logfile - morss
+	gunicorn --bind 0.0.0.0:${PORT:-11080} --preload --access-logfile - morss
 }
 
 daemon() {
-	gunicorn --bind 0.0.0.0:${PORT:-8000} --preload --access-logfile - --daemon morss
+	gunicorn --bind 0.0.0.0:${PORT:-11080} --preload --access-logfile - --daemon morss
 }
 
 reload() {
@@ -32,7 +32,7 @@ reload() {
 }
 
 check() {
-	python -m morss.crawler http://localhost:${PORT:-8000}/ > /dev/null 2>&1
+	python -m morss.crawler http://localhost:${PORT:-11080}/ > /dev/null 2>&1
 }
 
 if [ -z "$1" ]; then
